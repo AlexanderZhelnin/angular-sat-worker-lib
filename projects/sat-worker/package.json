@@ -1,0 +1,25 @@
+{
+  "name": "sat-worker",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Библиотека для запуска фоновых процессов в библиотеках",
+  "homepage": "https://www.youtube.com/channel/UCGntVzOD7faGCYbrUfd8PQg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexanderZhelnin/angular-sat-auth-lib"
+  },
+  "author": {
+    "name": "Александр Желнин",
+    "url": "https://www.youtube.com/channel/UCGntVzOD7faGCYbrUfd8PQg"
+  },
+  "keywords": [
+    "web worker"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
