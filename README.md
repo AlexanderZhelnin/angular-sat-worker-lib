@@ -1,13 +1,14 @@
 # SATAuth Библиотека запуска процесса в фоне. 
 
-[Исходный код](https://github.com/AlexanderZhelnin/angular-sat-worker-lib)
+[Исходный код библиотеки](https://github.com/AlexanderZhelnin/angular-sat-worker-lib)
 
 
+####главный модуль
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
-import { ISATWorker, SatWorkerModule, SATWORKER_OPTIONS } from 'sat-worker';
+import { ISATWorker, SATWORKER_OPTIONS } from 'sat-worker';
 
 import { AppComponent } from './app.component';
 
@@ -16,8 +17,7 @@ import { AppComponent } from './app.component';
     .....
   ],
   imports: [
-    .....
-    SatWorkerModule
+    .....    
   ],
   providers: [
     .....
@@ -28,5 +28,33 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
 ```
+
+####Пример
+```ts
+constructor(private s_worker: SatWorkerService) { }
+
+ngOnInit()
+{
+  const f = (a: string): string =>
+  {
+    console.log('work');
+
+    const start = Date.now();
+    while (Date.now() < start + 5000)
+    {
+    }
+    return a.toUpperCase();
+  };
+
+  for (let i = 1; i < 10; i++)
+    this.s_worker.work(f, `Проверка${i}`).subscribe({ next: v => console.log(v) });
+
+  setTimeout(() =>
+  {
+    this.s_worker.work(f, 'Проверка_').subscribe({ next: v => console.log(v) });
+  }, 6000);
+
+}
+```
+

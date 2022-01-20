@@ -1,6 +1,6 @@
 {
   "name": "sat-worker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Библиотека для запуска фоновых процессов в библиотеках",
   "homepage": "https://www.youtube.com/channel/UCGntVzOD7faGCYbrUfd8PQg",

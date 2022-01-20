@@ -70,6 +70,7 @@ export class SatWorkerService
   private getWorker<T, K>(fn: (v: K) => T): IWorker
   {
     const frStr = fn.toString();
+
     let arrayWorkers = this.dWorkers.get(frStr) ?? [];
     let w = arrayWorkers?.find(w => !w.isWork);
 
@@ -88,9 +89,10 @@ export class SatWorkerService
   /** Создание фонового процесса */
   private createWorker(fn: string): Worker
   {
+
     var blob = new Blob([
       'self.onmessage = ',
-      `(arguments)=>{const f = ${fn};self.postMessage(f(arguments.data));}`
+      `(arguments)=>{const f = ${fn};self.postMessage(f(arguments.data));};`
     ], { type: 'text/javascript' });
     var url = URL.createObjectURL(blob);
 
