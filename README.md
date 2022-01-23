@@ -3,7 +3,7 @@
 [Исходный код библиотеки](https://github.com/AlexanderZhelnin/angular-sat-worker-lib)
 
 
-####главный модуль
+###главный модуль
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,7 +30,7 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-####Пример
+###Пример
 ```ts
 constructor(private s_worker: SatWorkerService) { }
 
