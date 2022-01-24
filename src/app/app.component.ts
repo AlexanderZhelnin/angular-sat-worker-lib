@@ -50,14 +50,16 @@ export class AppComponent implements AfterViewInit
   {
     fromEvent(this.canvas.nativeElement, 'mousedown')
       .pipe(
-        filter((me: any) => me.which === 1),
-        map((me: any) => { return { x: me.x, y: me.y } }),
+        map(me=> me as MouseEvent),
+        filter(me => me.buttons === 1),
+        map(me => { return { x: me.x, y: me.y } }),
         switchMap(position =>
         {
           const center = { ...this.center };
           return fromEvent(this.canvas.nativeElement, 'mousemove')
             .pipe(
-              filter((me: any) => me.which === 1),
+              map(me=> me as MouseEvent),
+              filter(me => me.buttons === 1),
               map((me: any) => { return { position, center, x: me.x, y: me.y }; })
             );
         }))
@@ -66,7 +68,10 @@ export class AppComponent implements AfterViewInit
         {
           const dx = arg.x - arg.position.x;
           const dy = arg.y - arg.position.y;
-          this.center = { x: arg.center.x - dx / this.scale, y: arg.center.y - dy / this.scale }
+          this.center = {
+            x: arg.center.x - dx / this.scale,
+            y: arg.center.y + dy / this.scale
+          }
 
           this.draw();
         }
@@ -84,8 +89,8 @@ export class AppComponent implements AfterViewInit
     });
 
 
-    this.canvas.nativeElement.height = 1000;
-    this.canvas.nativeElement.width = 1000;
+    this.canvas.nativeElement.height = 500;
+    this.canvas.nativeElement.width = 500;
     this.ctx = this.canvas.nativeElement.getContext('2d');
     const mapRect: IRect = { left: 1550, bottom: 400, right: 2800, top: 4000 };
     this.center = { x: (mapRect.right + mapRect.left) / 2, y: (mapRect.top + mapRect.bottom) / 2 };
@@ -97,7 +102,6 @@ export class AppComponent implements AfterViewInit
           this.draw(gs);
         }
       });
-
   }
 
   isFirst = true;
@@ -112,8 +116,8 @@ export class AppComponent implements AfterViewInit
       this.isFirst = false;
     }
 
-    const w2 = (1000 / this.scale) / 2;
-    const h2 = (1000 / this.scale) / 2;
+    const w2 = (500 / this.scale) / 2;
+    const h2 = (500 / this.scale) / 2;
 
     const rect: IRect =
     {
@@ -132,7 +136,11 @@ export class AppComponent implements AfterViewInit
       const prs = (self as any).primitives as IPrimitive[];
 
       prs
-        .filter(p => p.rect.left < arg.rect.right && p.rect.bottom < arg.rect.top && p.rect.right > arg.rect.left && p.rect.top > arg.rect.bottom)
+        .filter(p =>
+          p.rect.left < arg.rect.right &&
+          p.rect.bottom < arg.rect.top &&
+          p.rect.right > arg.rect.left &&
+          p.rect.top > arg.rect.bottom)
         .forEach(p =>
           result.push({
             name: p.name,
@@ -143,7 +151,7 @@ export class AppComponent implements AfterViewInit
               {
                 return {
                   x: (c.x - arg.rect.left) * arg.scale,
-                  y: (c.y - arg.rect.bottom) * arg.scale
+                  y: 500 - (c.y - arg.rect.bottom) * arg.scale
                 };
               })
           }

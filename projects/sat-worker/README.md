@@ -2,6 +2,7 @@
 
 [Исходный код библиотеки](https://github.com/AlexanderZhelnin/angular-sat-worker-lib)
 
+[![Видео](https://img.youtube.com/vi/8ZTWU62bFAM/0.jpg)](https://youtu.be/8ZTWU62bFAM)
 
 ####главный модуль
 ```ts

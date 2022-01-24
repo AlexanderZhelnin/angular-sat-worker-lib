@@ -14,7 +14,9 @@ import { AppComponent } from './app.component';
     HttpClientModule
   ],
   providers: [
-    { provide: SATWORKER_OPTIONS, useValue: new BehaviorSubject<ISATWorker>({ isAsync: true }) }
+    {
+      provide: SATWORKER_OPTIONS,
+      useValue: new BehaviorSubject<ISATWorker>({ isAsync: true }) }
   ],
   bootstrap: [AppComponent]
 })
